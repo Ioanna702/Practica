@@ -40,7 +40,18 @@ public class EmployeeService {
         }
         employee.setDepartment(department);
         employee.setJobCategory(jobCategory);
-        return this.employeeRepository.save(employee);
+
+        if (employee.getEndDate() != null) {
+            if (employee.getStartDate().isBefore(employee.getEndDate())) {
+                return this.employeeRepository.save(employee);
+            }
+            else {
+                throw new ErrorResponse("Start date must be before the end date.");
+            }
+        } else {
+
+            return this.employeeRepository.save(employee);
+        }
     }
 
     public List<Employee> findAllEmployees() {

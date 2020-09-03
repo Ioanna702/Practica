@@ -3,7 +3,8 @@ package com.ausy_technologies.employee_management.Model.DAO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+
 
 @Entity
 @Table(name = "employees")
@@ -19,18 +20,18 @@ public class Employee {
     @Column(name = "is_manager")
     private boolean isManager;
     @Column(name = "start_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private Date startDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
     @Column(name = "end_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private Date endDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate endDate;
     private boolean active;
     private String address;
     private String cp;
     private String telephone;
     private String email;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private Date birthday;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate birthday;
     @Column(name = "no_children")
     private int noChildren;
     private double salary;
@@ -79,19 +80,19 @@ public class Employee {
         isManager = manager;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -135,11 +136,11 @@ public class Employee {
         this.email = email;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
@@ -224,25 +225,4 @@ public class Employee {
                 '}';
     }
 
-    //        employeeUpdated.setId(employeeId);
-//        employeeUpdated.setDepartment(department);
-//        employeeUpdated.setJobCategory(jobCategory);
-//        employeeUpdated.setFirstName(employee.getFirstName());
-//        employeeUpdated.setLastName(employee.getLastName());
-//        employeeUpdated.setManager(employee.isManager());
-//        employeeUpdated.setStartDate(employee.getStartDate());
-//        employeeUpdated.setEndDate(employee.getEndDate());
-//        employeeUpdated.setActive(employee.isActive());
-//        employeeUpdated.setAddress(employee.getAddress());
-//        employeeUpdated.setCp(employee.getCp());
-//        employeeUpdated.setTelephone(employee.getTelephone());
-//        employeeUpdated.setEmail(employee.getEmail());
-//        employeeUpdated.setBirthday(employee.getBirthday());
-//        employeeUpdated.setNoChildren(employee.getNoChildren());
-//        employeeUpdated.setSalary(employee.getSalary());
-//        employeeUpdated.setStudies(employee.getStudies());
-//        employeeUpdated.setSocialSecurityNumber(employee.getSocialSecurityNumber());
-//        employeeUpdated.setHasDrivingLicense(employee.isHasDrivingLicense());
-//
-//        this.employeeRepository.save(employeeUpdated);
 }

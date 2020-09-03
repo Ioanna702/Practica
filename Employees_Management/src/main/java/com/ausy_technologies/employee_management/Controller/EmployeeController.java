@@ -56,7 +56,7 @@ public class EmployeeController {
             System.err.println(errorResponse);
             return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(employeeFound, headers, HttpStatus.FOUND);
+        return new ResponseEntity<>(employeeFound, headers, HttpStatus.OK);
 
     }
 

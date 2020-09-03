@@ -1,6 +1,6 @@
 package com.ausy_technologies.employee_management.Model.DTO;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class EmployeeDTO {
 
@@ -10,7 +10,7 @@ public class EmployeeDTO {
     private String departmentName;
     private String jobCategoryName;
     private String telephone;
-    private Date startDate;
+    private LocalDate startDate;
     private boolean active;
     private boolean isManager;
     private Double salary;
@@ -47,11 +47,11 @@ public class EmployeeDTO {
         this.telephone = telephone;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 

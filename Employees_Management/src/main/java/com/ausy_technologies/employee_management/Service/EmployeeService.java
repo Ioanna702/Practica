@@ -65,18 +65,23 @@ public class EmployeeService {
         this.employeeRepository.deleteById(id);
     }
 
-    public void updateEmployee(int employeeId, int departmentId, int jobCategoryId) {
+    public Employee updateEmployee(Employee employee, int employeeId, int departmentId, int jobCategoryId) {
+        Employee employeeUpdated;
         Department department;
         JobCategory jobCategory;
         try {
             department = this.departmentRepository.findById(departmentId).get();
             jobCategory = this.jobCategoryRepository.findById(jobCategoryId).get();
-            this.employeeRepository.findById(employeeId).get();
+            employeeUpdated = this.employeeRepository.findById(employeeId).get();
         } catch (NoSuchElementException noSuchElementException) {
             throw new ErrorResponse(noSuchElementException.getMessage());
         }
 
-        this.employeeRepository.updateEmployee(department, jobCategory, employeeId);
+        employee.setId(employeeId);
+        employee.setDepartment(department);
+        employee.setJobCategory(jobCategory);
+        this.employeeRepository.save(employee);
+        return employee;
     }
 
     public List<Employee> getEmployeesByDepartment(int id) {

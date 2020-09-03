@@ -223,4 +223,26 @@ public class Employee {
                 ", jobCategory=" + jobCategory +
                 '}';
     }
+
+    //        employeeUpdated.setId(employeeId);
+//        employeeUpdated.setDepartment(department);
+//        employeeUpdated.setJobCategory(jobCategory);
+//        employeeUpdated.setFirstName(employee.getFirstName());
+//        employeeUpdated.setLastName(employee.getLastName());
+//        employeeUpdated.setManager(employee.isManager());
+//        employeeUpdated.setStartDate(employee.getStartDate());
+//        employeeUpdated.setEndDate(employee.getEndDate());
+//        employeeUpdated.setActive(employee.isActive());
+//        employeeUpdated.setAddress(employee.getAddress());
+//        employeeUpdated.setCp(employee.getCp());
+//        employeeUpdated.setTelephone(employee.getTelephone());
+//        employeeUpdated.setEmail(employee.getEmail());
+//        employeeUpdated.setBirthday(employee.getBirthday());
+//        employeeUpdated.setNoChildren(employee.getNoChildren());
+//        employeeUpdated.setSalary(employee.getSalary());
+//        employeeUpdated.setStudies(employee.getStudies());
+//        employeeUpdated.setSocialSecurityNumber(employee.getSocialSecurityNumber());
+//        employeeUpdated.setHasDrivingLicense(employee.isHasDrivingLicense());
+//
+//        this.employeeRepository.save(employeeUpdated);
 }

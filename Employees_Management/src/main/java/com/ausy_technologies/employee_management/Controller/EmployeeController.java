@@ -74,11 +74,12 @@ public class EmployeeController {
     }
 
     @PutMapping("/updateEmployee/{employeeId}/{departmentId}/{jobCategoryId}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable int employeeId, @PathVariable int departmentId, @PathVariable int jobCategoryId) {
+    public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee, @PathVariable int employeeId, @PathVariable int departmentId, @PathVariable int jobCategoryId) {
+        Employee employeeUpdated;
         HttpHeaders headers = new HttpHeaders();
         headers.add("Custom-Header", "Update employee");
         try {
-            this.employeeService.updateEmployee(employeeId, departmentId, jobCategoryId);
+            employeeUpdated = this.employeeService.updateEmployee(employee, employeeId, departmentId, jobCategoryId);
 
         } catch (ErrorResponse errorResponse) {
             System.out.println(errorResponse);

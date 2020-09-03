@@ -2,14 +2,16 @@ package com.ausy_technologies.employee_management.Controller;
 
 import com.ausy_technologies.employee_management.Exception.ErrorResponse;
 import com.ausy_technologies.employee_management.Model.DAO.Employee;
+import com.ausy_technologies.employee_management.Model.DTO.EmployeeDTO;
 import com.ausy_technologies.employee_management.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.ausy_technologies.employee_management.Mapper.EmployeeMapper;
 import javax.xml.ws.Response;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -129,4 +131,82 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(employeesListFound, headers, HttpStatus.OK);
     }
+
+    /////////EmployeesDTO
+
+    @GetMapping("/getAllEmployeesDTO")
+    public ResponseEntity<List<EmployeeDTO>> findAllEmployeesDTO() {
+        List<EmployeeDTO> employeesDTOFound = new ArrayList<>();
+        EmployeeMapper employeeMapper = new EmployeeMapper();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Custom-Header", "Get all employees DTO");
+        try{
+            List<Employee> employeesList = employeeService.findAllEmployees();
+            for(Employee employee: employeesList){
+                employeesDTOFound.add(employeeMapper.employeeToEmployeeDTO(employee));
+            }
+        } catch (ErrorResponse errorResponse){
+            System.err.println(errorResponse);
+        }
+
+        return new ResponseEntity<>(employeesDTOFound, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/getEmployeesDTOByDepartment/{id}")
+    public ResponseEntity<List<EmployeeDTO>> getEmployeesDTOByDepartment(@PathVariable int id) {
+        List<EmployeeDTO> employeesDTOFound = new ArrayList<>();
+        EmployeeMapper employeeMapper = new EmployeeMapper();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Custom-Header", "Get employee DTO by department id");
+        try {
+            List<Employee> employeesListFound = this.employeeService.getEmployeesByDepartment(id);
+            for(Employee employee: employeesListFound){
+                employeesDTOFound.add(employeeMapper.employeeToEmployeeDTO(employee));
+            }
+        } catch (
+                ErrorResponse errorResponse) {
+            System.out.println(errorResponse);
+            return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(employeesDTOFound, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/getEmployeesDTOByJob/{id}")
+    public ResponseEntity<List<EmployeeDTO>> getEmployeesDTOByJob(@PathVariable int id) {
+        List<EmployeeDTO> employeesDTOFound = new ArrayList<>();
+        EmployeeMapper employeeMapper = new EmployeeMapper();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Custom-Header", "Get employee DTO by job category id");
+        try {
+            List<Employee> employeesListFound = this.employeeService.getEmployeesByJob(id);
+            for(Employee employee: employeesListFound){
+                employeesDTOFound.add(employeeMapper.employeeToEmployeeDTO(employee));
+            }
+        } catch (
+                ErrorResponse errorResponse) {
+            System.out.println(errorResponse);
+            return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(employeesDTOFound, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/getEmployeesDTOByDepartmentAndJob/{departmentId}/{jobCategoryId}")
+    public ResponseEntity<List<EmployeeDTO>> getEmployeesDTOByDepartment(@PathVariable int departmentId, @PathVariable int jobCategoryId) {
+        List<EmployeeDTO> employeesDTOFound = new ArrayList<>();
+        EmployeeMapper employeeMapper = new EmployeeMapper();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Custom-Header", "Get employee DTO by department and job id");
+        try {
+            List<Employee> employeesListFound = this.employeeService.getEmployeesByDepartmentAndJob(departmentId, jobCategoryId);
+            for(Employee employee: employeesListFound){
+                employeesDTOFound.add(employeeMapper.employeeToEmployeeDTO(employee));
+            }
+        } catch (
+                ErrorResponse errorResponse) {
+            System.out.println(errorResponse);
+            return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(employeesDTOFound, headers, HttpStatus.OK);
+    }
+
 }

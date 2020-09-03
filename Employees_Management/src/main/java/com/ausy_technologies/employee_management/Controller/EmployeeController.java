@@ -13,6 +13,7 @@ import com.ausy_technologies.employee_management.Mapper.EmployeeMapper;
 import javax.xml.ws.Response;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/employees")
@@ -131,6 +132,21 @@ public class EmployeeController {
             return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(employeesListFound, headers, HttpStatus.OK);
+    }
+
+    @PutMapping("/updateEmployeeTelephone/{id}")
+    public ResponseEntity<Employee> updateUserPassword(@RequestBody Map<String, String> map, @PathVariable int id) {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Custom-Header", "Update telephone by employee id");
+        try {
+            this.employeeService.updateEmployeeTelephone(map.get("telephone"), id);
+        } catch (
+                ErrorResponse errorResponse) {
+            System.out.println(errorResponse);
+            return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(null, headers, HttpStatus.RESET_CONTENT);
     }
 
     /////////EmployeesDTO

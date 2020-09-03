@@ -44,8 +44,7 @@ public class EmployeeService {
         if (employee.getEndDate() != null) {
             if (employee.getStartDate().isBefore(employee.getEndDate())) {
                 return this.employeeRepository.save(employee);
-            }
-            else {
+            } else {
                 throw new ErrorResponse("Start date must be before the end date.");
             }
         } else {
@@ -159,5 +158,14 @@ public class EmployeeService {
         }
 
         return employeesListFound;
+    }
+
+    public void updateEmployeeTelephone(String telephone, int id) {
+        try {
+            this.employeeRepository.findById(id).get();
+        } catch (NoSuchElementException noSuchElementException) {
+            throw new ErrorResponse(noSuchElementException.getMessage());
+        }
+        this.employeeRepository.updateEmployeeTelephone(telephone, id);
     }
 }

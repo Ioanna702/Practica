@@ -15,7 +15,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 @Modifying
 @Transactional
-@Query("Update Employee set department= :department , jobCategory= :jobCategory where id= :id")
-void updateEmployee(@Param("department") Department department, @Param("jobCategory")JobCategory jobCategory, @Param("id") int id);
+@Query("Update Employee set telephone= :telephone where id= :id")
+void updateEmployeeTelephone(@Param("telephone") String telephone, @Param("id") int id);
 
 }

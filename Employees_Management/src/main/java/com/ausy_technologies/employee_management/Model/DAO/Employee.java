@@ -191,7 +191,7 @@ public class Employee {
         this.department = department;
     }
 
-    public JobCategory getJobCategories() {
+    public JobCategory getJobCategory() {
         return jobCategory;
     }
 

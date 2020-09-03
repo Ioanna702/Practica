@@ -1,6 +1,5 @@
 package com.ausy_technologies.employee_management.Service;
 
-import com.ausy_technologies.employee_management.Exception.DateError;
 import com.ausy_technologies.employee_management.Exception.ErrorResponse;
 import com.ausy_technologies.employee_management.Model.DAO.Department;
 import com.ausy_technologies.employee_management.Model.DAO.Employee;
@@ -11,10 +10,7 @@ import com.ausy_technologies.employee_management.Repository.JobCategoryRepositor
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -104,29 +100,48 @@ public class EmployeeService {
         return employeesListFound;
     }
 
+    public List<Employee> getEmployeesByJob(int id) {
+        List<Employee> employeesList = this.findAllEmployees();
+        List<Employee> employeesListFound = new ArrayList<>();
+        JobCategory jobCategory;
+        try {
+            jobCategory = this.jobCategoryRepository.findById(id).get();
+            for (Employee employee : employeesList) {
+                if (employee.getJobCategory().getId() == id) {
+                    employeesListFound.add(employee);
 
-//    public boolean validateDate(Date date) {
-//        String dateString = date + "";
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-//        return (dateString.equals(simpleDateFormat.format(date)));
-//    }
-//            //check for a valid birthday
-//            if (!validateDate(employee.getBirthday())) {
-//                throw new DateError("Birthday format is not ok. Must be dd-MM-yyyy");
-//            }
-//
-//            if (!validateDate(employee.getStartDate())) {
-//                throw new DateError("Start date format is not ok. Must be dd-MM-yyyy");
-//            }
-//
-//            if (employee.getEndDate() != null && !validateDate(employee.getEndDate())) {
-//
-//                throw new DateError("End date format is not ok. Must be dd-MM-yyyy");
-//
-//            }
-//
-//            //check for start date < end date
-//            if (!employee.getStartDate().before(employee.getEndDate())) {
-//                throw new DateError("End date must be after start date.");
-//            }
+                }
+            }
+        } catch (NoSuchElementException noSuchElementException) {
+            throw new ErrorResponse(noSuchElementException.getMessage());
+        } catch (NullPointerException nullPointerException) {
+            throw new ErrorResponse(nullPointerException.getMessage() + ": There is no job category with this id.");
+        }
+
+        return employeesListFound;
+    }
+
+    public List<Employee> getEmployeesByDepartmentAndJob(int departmentId, int jobCategoryId) {
+        List<Employee> employeesList = this.findAllEmployees();
+        List<Employee> employeesListFound = new ArrayList<>();
+        Department department;
+        JobCategory jobCategory;
+        try {
+            department = this.departmentRepository.findById(departmentId).get();
+            jobCategory = this.jobCategoryRepository.findById(jobCategoryId).get();
+            for (Employee employee : employeesList) {
+                if (employee.getDepartment().getId() == departmentId) {
+                    if (employee.getJobCategory().getId() == jobCategoryId) {
+                        employeesListFound.add(employee);
+                    }
+                }
+            }
+        } catch (NoSuchElementException noSuchElementException) {
+            throw new ErrorResponse(noSuchElementException.getMessage());
+        } catch (NullPointerException nullPointerException) {
+            throw new ErrorResponse(nullPointerException.getMessage() + ": There is no job category with this id.");
+        }
+
+        return employeesListFound;
+    }
 }

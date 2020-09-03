@@ -99,5 +99,34 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(employeesListFound, headers, HttpStatus.OK);
     }
-//    @GetMapping("/getEmployeesByJob")
+
+    @GetMapping("/getEmployeesByJob/{id}")
+    public ResponseEntity<List<Employee>> getEmployeesByJob(@PathVariable int id) {
+        List<Employee> employeesListFound;
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Custom-Header", "Get employee by job category id");
+        try {
+            employeesListFound = this.employeeService.getEmployeesByJob(id);
+        } catch (
+                ErrorResponse errorResponse) {
+            System.out.println(errorResponse);
+            return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(employeesListFound, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/getEmployeesByDepartmentAndJob/{departmentId}/{jobCategoryId}")
+    public ResponseEntity<List<Employee>> getEmployeesByDepartmentAndJob(@PathVariable int departmentId, @PathVariable int jobCategoryId) {
+        List<Employee> employeesListFound;
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Custom-Header", "Get employee by department id and job category id");
+        try {
+            employeesListFound = this.employeeService.getEmployeesByDepartmentAndJob(departmentId, jobCategoryId);
+        } catch (
+                ErrorResponse errorResponse) {
+            System.out.println(errorResponse);
+            return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(employeesListFound, headers, HttpStatus.OK);
+    }
 }

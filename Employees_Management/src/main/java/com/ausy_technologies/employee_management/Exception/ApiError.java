@@ -11,7 +11,7 @@ public class ApiError {
     private HttpStatus httpStatus; //statusul erorii (4xx sau 5xx)
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime localDateTime;  //pentru a tine cont de cand a avut loc eroarea
+    private LocalDateTime localDateTime;  //pentru a tine cont de cand a avut loc eroarea (de regula se numeste timestamp)
 
     private ApiError() {
         localDateTime = LocalDateTime.now();

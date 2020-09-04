@@ -29,6 +29,7 @@ public class JobCategory {
         this.name = name;
     }
 
+    
     @Override
     public String toString() {
         return "JobCategory{" +

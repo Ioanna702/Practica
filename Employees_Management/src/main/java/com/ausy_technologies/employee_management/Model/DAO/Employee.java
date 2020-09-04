@@ -41,10 +41,10 @@ public class Employee {
     @Column(name = "has_driving_license")
     private boolean hasDrivingLicense;
 
-    @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
     private Department department;
-    @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "job_category_id")
     private JobCategory jobCategory;
 

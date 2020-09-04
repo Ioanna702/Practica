@@ -10,7 +10,7 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    @OneToMany(fetch=FetchType.LAZY, mappedBy = "department")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "department", cascade = CascadeType.ALL)
     private List<Employee> employeeList;
 
     public int getId() {
